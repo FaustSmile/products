@@ -1,13 +1,20 @@
+import os # operating system
+
 # 讀取檔案
 products = []
-with open("products.csv", "r", encoding="utf-8") as f:
-    for line in f:
-        if "商品,價格" in line:
-            continue # 繼續，直接跳到下一次迴圈
-        name, price = line.strip().split(",") 
-        # 先用strip 去掉\n 再用split 遇到","做切割
-        products.append([name, price])
-print(products)
+if os.path.isfile("products.csv"): #檢查是否有此檔案
+    print("有此檔案!")
+    with open("products.csv", "r", encoding="utf-8") as f:
+        for line in f:
+            if "商品,價格" in line:
+                continue # 繼續，直接跳到下一次迴圈
+            name, price = line.strip().split(",") 
+            # 先用strip 去掉\n 再用split 遇到","做切割
+            products.append([name, price])
+    print(products)
+
+else:
+    print("找不到此檔案....")
 
 # 讓使用者輸入
 while True:
@@ -15,7 +22,6 @@ while True:
     if name == "q":
         break
     price = input("請輸入商品價格: ")
-    price = int(price)
     products.append([name, price])
 print("商品與價格為: ", products)
 
